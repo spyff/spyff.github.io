@@ -8,19 +8,26 @@
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
+username: spyff
+repo: spyff.github.io
+branch: source
+
+source: .
+destination: _site
+
 # Site settings
 # These are used to personalize your new site. If you look in the HTML files,
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Fejes Ferenc technical blog
-email: spyff[]mailbox[]hu
+email: spyff[x]mailbox[x]hu
 description: > # this means to ignore newlines until "baseurl:"
   Fejes Ferenc's blog about solving interesting network problems, 
   software development and other interesting technical things.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: fejes.ferenc	
+twitter_username: ferenc.fejes	
 github_username:  spyff
 
 # Build settings

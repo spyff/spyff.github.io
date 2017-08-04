@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+- 2.3.1
+- 1.9.3
+- jruby-19mode
+- rbx-2
+install:
+- bundle install
+script: bundle exec rake site:deploy --quiet
+env:
+  global:
+  - secure: cY+xI0Z+vXiMtag3QkwEVwAFxNJGw8t4GgHQnWUrbarNmkpO3fN0iCZ1vIM4784QlZgWD+t8ywO3eSho6vc20p6rknPolPc02ntkwBCiqbnAsFaog2V1gwBg+vwBiHUNZ22cBTZzxbAsB401ls42hygE5Vg0EcH42RGGemajDU58aeAb49d3nh1kSMzhXDFxf5e80MBbv3fKljSfgcElKhvqHHI/f4MIAmw60PJ5L+Vi/spF3ybwyii3AJU6UkCM9WEwnf3K+eVswwU23qqQ/Gxyu5WfemaaWP1uIwQ0EU3xMNnYt6PVWaAIb8gYzDynmZ75osX1A79EBFmiPrCnNXbMc1y5XS5kHMy4yJo2EoM2seKLxQKdGqA9T+ucwQsZgqN2ny+i9xkODlBZmsaerqbg2fsHjWY2XdBHTHEVT2CJXRssSWgG3f1UOgiv2CwMkn1u24WQOha2w+yjPG0NL2uozRmSOX+4PVtUBnjdBta19S2EyFz66fWBO2E20NMiA5ElXPUt87L/j2Asg7+uHzr3OFiZnk8p44fikWO8/sS+OqAQU1p1qw619tbk4b2cCGjDdtdNf5CGaBJHvbIAUPidcRMKwfLBRo2DyVUD+VLsNdjB9xjLrfhusnUhMw2smKQ31LD9Vwbeeaxk/i67+tRudsUPY6h5HM4hzGZg7zY=
