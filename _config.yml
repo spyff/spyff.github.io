@@ -10,6 +10,7 @@
 
 username: spyff
 repo: spyff.github.io
+branch: source
 
 source: .
 destination: _site
