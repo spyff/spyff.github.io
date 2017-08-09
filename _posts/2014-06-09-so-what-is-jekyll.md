@@ -6,6 +6,8 @@ summary:    Transform your plain text into static websites and blogs. Simple, st
 categories: jekyll pixyll
 ---
 
+TEST
+
 Jekyll is a tool for transforming your plain text into static websites and 
 blogs. It is simple, static, and blog-aware. Jekyll uses the 
 [Liquid](http://docs.shopify.com/themes/liquid-basics) templating
