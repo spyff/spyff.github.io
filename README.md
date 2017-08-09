@@ -1,3 +1,13 @@
+# Notes for install
+```
+$ git clone https://github.com/spyff/spyff.github.io.git
+$ sudo apt install ruby ruby-dev
+$ sudo gem install jekyll bundler
+$ bundle install
+$ bundle exec jekyll serve
+```
+
+
 # Pixyll
 
 [pixyll.com](http://www.pixyll.com)

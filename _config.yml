@@ -2,7 +2,7 @@
 title:       Fejes Ferenc technical blog
 email:       spyff[x]mailbox[x]hu
 author:      Fejes Ferenc
-description: ""
+description: "Fejes Ferenc blog"
 baseurl:     ""
 url:         "https://spyff.github.io/"
 date_format: "%b %-d, %Y"
@@ -19,7 +19,7 @@ google_tag_manager:
 bing_verification:
 
 # Optional features
-animated:             true
+animated:             false
 show_related_posts:   false
 show_post_footers:    false
 show_social_icons:    true
