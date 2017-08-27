@@ -57,7 +57,7 @@ $ make kernel_menuconfig
 ```
 Then navigate into the `Networking support > Networking options` and enable `MPTCP protocol`. **Save the configuration!**
 
-Now we did with the configuration so let's build the image!
+We done with the configuration so let's build the image!
 ```
 $ make
 ```
@@ -157,7 +157,7 @@ Then create a configuration file for the ss-server. For example `/etc/ss_server.
 ```
 Add the following line before the `exit 0` into the `/etc/rc.local` to start ss-server on the router startup:
 ```
-ss-server -c /etc/ss_redir.json
+ss-server -c /etc/ss_server.json
 ```
 Thats it, reboot the router.
 
