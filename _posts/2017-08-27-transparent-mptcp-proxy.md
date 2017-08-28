@@ -12,18 +12,18 @@ categories: mptcp
 * **shadowsocks-libev** is a lightweight proxy application. It has TCP redirection functionality (**ss-redir** module) which is used later.
 
 ## Main problem and the goal of the project
-In a Wi-Fi mesh network (like Freifunk backbone) there is multiple point-to-point links between the single nodes. I'm not really into it, but secondary links might be used for failover purposes or some load balancing work between the different paths. For better resource allocation, the free capacity on the secondary links should be used if exists. That's where MPTCP comes in: we can build MPTCP subflows over them, and because of the smart congestion control algorithm it only uses as many bandwidth on the secondary link as many available. In this project, I will show step-by-step how You can achieve this kind of operation in real life environment. There are few things which are required for the project:
+In a Wi-Fi mesh network (like Freifunk backbone) there are multiple point-to-point links between the single nodes. I'm not really into it, but secondary links might be used for failover purposes or some load balancing work between the different paths. For better resource allocation, the free capacity on the secondary links should be used if it exists. That's where MPTCP comes in: we can build MPTCP subflows over them, and because of the smart congestion control algorithm it only uses as many bandwidth on the secondary link as many available. In this project, I will show step-by-step how You can achieve this kind of operation in real life environment. There are few things which are required for the project:
 * 2 routers
 * 4 Wi-Fi bridge for two point-to-point WAN Wi-Fi links (or 2 UDP cable for testing)
 * LEDE with MPTCP support
 * shadowsocks-libev
 
 ## Operation example
-1. Clients connecting to the routers. They only supporting regular TCP.
-2. When a client starts a TCP session, which is run through the router, we redirect it on the router to the local port if the **ss-redier** with an iptables rule.
-3. The router support MPTCP and build multiple subflows over the Wi-Fi WAN paths with the second router.
+1. Clients are connecting to the routers. They only supporting regular TCP.
+2. When a client starts a TCP session, which  runs through the router, we redirect it on the router to the local port if the **ss-redir** with an iptables rule.
+3. The router supports MPTCP and builds multiple subflows over the Wi-Fi WAN paths with the second router.
 4. On the second router **ss-server** reintercepts the traffic of the subflows into a recently opened regular TCP flow to the client's original destination.
-5. The endpoints enjoying the benefits of multiple WAN paths (larger bandwidth, better and faster failover).
+5. The endpoints are enjoying the benefits of multiple WAN paths (larger bandwidth, better and faster failover).
 
 # Guide for reproducing the project
 ## 1. Get the required software environment and build the LEDE images for the routers
@@ -57,7 +57,7 @@ $ make kernel_menuconfig
 ```
 Then navigate into the `Networking support > Networking options` and enable `MPTCP protocol`. **Save the configuration!**
 
-We done with the configuration so let's build the image!
+We are ready with the configuration so let's build the image!
 ```
 $ make
 ```
@@ -70,17 +70,17 @@ After that, You should repeat the steps for another device. The output is a flas
 * For the tests, I use the following hardware:
     * Netgear R7000 router
     * Netgear R7800 router
-    * 2 Ubiquiti Loco M5 Wi-Fi bridge
-    * 2 Ubiquiti M5 Wi-Fi bridge
-    * Lots of small UTP cable
-    * A PC and a Laptop (or some cases a RaspberryPi and a Laptop for the portable setup)
+    * 2 Ubiquiti Loco M5 Wi-Fi bridges
+    * 2 Ubiquiti M5 Wi-Fi bridges
+    * Lots of small UTP cables
+    * A PC and a Laptop (or in some cases a RaspberryPi and a Laptop for the portable setup)
 
 
-* The schematic figure of my setup on the image above. We need 2 WAN connection and 1 LAN on every router. The most simple way if we creating 3 VLANs. On these routers, there are 5 RJ-45 switch ports, I decided to put LAN to the original WAN port, WAN1 to port 1-2 and WAN2 to port 3-4.
-* Every Wi-Fi bridge using DHCP to get the IP address. **Path #1** bridges configured to use **5180 MHz** frequency band, **Path #2** bridges on **5700 MHz**.
+* The schematic figure of my setup on the image above. We need 2 WAN connection and 1 LAN on every router. The most simple way if we are creating 3 VLANs. On these routers, there are 5 RJ-45 switch ports, I decided to put LAN to the original WAN port, WAN1 to port 1-2 and WAN2 to port 3-4.
+* Every Wi-Fi bridge is using DHCP to get the IP address. **Path #1** bridges configured to use **5180 MHz** frequency band, **Path #2** bridges on **5700 MHz**.
 * I put Path #1 bridges to WAN1 (connected to port 1 on each router) and Path #2 bridges to WAN2 (connected to port 3 on each router).
-* Client machines connected to the LAN port (which is the original yellow WAN port) on each router. They don't need any config and gets their IP addresses from the router LAN's DHCP server.
-* WAN1 and WAN2 on the router which will run the **ss-redir** configured to get IP over DHCP. On the router which run the **ss-server** configured with static IP and running a DHCP server.
+* Client machines connected to the LAN port (which is the original yellow WAN port) on each router. They don't need any config and get their IP addresses from the router LAN's DHCP server.
+* WAN1 and WAN2 on the router which will run the **ss-redir** configured to get IP over DHCP.  The router which runs the **ss-server** is configured with static IP and running a DHCP server.
 * Very simple adressing:
     * LAN on R7000 router: 192.168.70.0/24
     * LAN on R7800 router: 192.168.78.0/24
@@ -88,11 +88,11 @@ After that, You should repeat the steps for another device. The output is a flas
     * WAN2 on each router: 10.2.2.0/24
 
 * For the switch and network configuration I attached my examples which might be give some pointers even for different routers. Original and modified `etc/config/network` files included for both devices: R7000 [original](https://gist.github.com/spyff/08ca12bc0fcafa4652665bccb9f92d81) and [modified](https://gist.github.com/spyff/776da4688469d4f82ebe58e340b2db92) file, R7800 [original](https://gist.github.com/spyff/966ddaca33b1deebd395eedc1b30ddde) and [modified](https://gist.github.com/spyff/50d8ebdf5795b542de4ec3755a098387) file.
-For apply the modified configs You should SSH into the LEDE and type:
+For applying the modified configs You should SSH into the LEDE and type:
 ```
 # cat > /etc/config/network
 ```
-And paste the content of the new config. Then press `Ctrl+D` to close the file. For update the old config:
+And paste the content of the new config. Then press `Ctrl+D` to close the file. For updating the old config:
 ```
 # uci commit network
 # uci commit
@@ -105,11 +105,11 @@ SSH into the proxy-client device with the following command but replace the IP a
 ```
 $ ssh root@192.168.78.1
 ```
-In the root prompt, check if ss-redir and ss-server available.
+In the root prompt, check if ss-redir and ss-server are available.
 ```
 # ss-redir
 ```
-This command maybe runs, maybe drop an error with invalid config path but both cases is good for us. We create a config file for the **ss-redir** somewhere. In my case `/etc/ss_redir.json` which contains:
+This command maybe runs, maybe drops an error with invalid config path but in both  cases is good for us. We create a config file for the **ss-redir** somewhere. In my case `/etc/ss_redir.json` which contains:
 ```
 {
     "server" : ["10.1.1.70", "10.2.2.70"],
@@ -122,12 +122,12 @@ This command maybe runs, maybe drop an error with invalid config path but both c
     "fast_open" : false,
 }
 ```
-You can choose other ciphers as well instead of `none`. Check shadowsocks-libev manual on the web for all the available ciphers. I add both WAN IP address of the other router.
-Then I opened up `/etc/rc.local` and add the following line before the `exit 0` line, to start ss-redir when the router boot up:
+You can choose other ciphers as well instead of `none`. Check shadowsocks-libev manual on the web for all the available ciphers. I added both WAN IP address of the other router.
+Then I opened up `/etc/rc.local` and added the following line before the `exit 0` line, to start ss-redir when the router boots up:
 ```
 ss-redir -c /etc/ss_redir.json
 ```
-For redirect, all the TCP traffic to ss-redir, add another lines into the `/etc/rc.local`. The 4. line is because we don't want to redirect traffic inside of the LAN.
+For redirecting, all the TCP traffic to ss-redir, add another lines into the `/etc/rc.local`. The 4. line is because we don't want to redirect traffic inside of the LAN.
 ```
 iptables -t nat -N SSREDIR
 iptables -t nat -A PREROUTING -p tcp -j SSREDIR
@@ -135,10 +135,10 @@ iptables -t nat -A SSREDIR -d 127.0.0.0/8 -j RETURN
 iptables -t nat -A SSREDIR -d 192.168.78.0/24 -j RETURN
 iptables -t nat -A SSREDIR -p tcp -j REDIRECT --to-ports 1080
 ```
-The config for this router is done, reboot it.
+The config for this router has done, reboot it.
 
 
-**Setup for proxy server**: SSH into the another router which is act as a proxy server. In my case:
+**Setup for proxy server**: SSH into the another router which  acts as a proxy server. In my case:
 ```
 $ ssh root@192.168.70.1
 ```
@@ -176,7 +176,7 @@ on the notebook which is connected to the R7000 LAN. The IP address there is my 
 
 # Summary
 For more information from the project please check Freifunk blog posts linked below. This page is intended for my _Google Summer of Code_ project summary page. My contributions:
-* [LEDE fork with MPTCP support, check the git diff which is contains my modifications.](https://github.com/spyff/lede-mptcp)
+* [LEDE fork with MPTCP support, check the git diff which  contains my modifications.](https://github.com/spyff/lede-mptcp)
 * [shadowsocks-libev fork **shadowsocks-libev-nocrpyto** with optional cipher support. Check the git diff for my modifications.](https://github.com/spyff/shadowsocks-libev-nocrypto)
 * [LEDE feed for my package(s).](https://github.com/spyff/packages)
 * [Blog posts on Freifunk blog.](https://blog.freifunk.net/author/spyff/)
