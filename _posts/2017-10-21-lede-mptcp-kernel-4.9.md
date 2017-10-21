@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      LEDE MPTCP with kernel 4.9
-date:       2017-10-21 18:00:00
+date:       2017-10-21 15:00:00
 summary:    Just added master branch with the actual (currently unstable but working) MPTCP implementation.
 categories: mptcp
 ---
@@ -15,6 +15,7 @@ The MPTCP LEDE project previously supported only the stable 17.01 LEDE branch an
 ## What we have now
 
 [Master branch](https://github.com/spyff/lede-mptcp/tree/master) with unstable MPTCP supported 4.9 kernel
+
 [Lede-mptcp-17.01](https://github.com/spyff/lede-mptcp/tree/lede-mptcp-17.01) branch with stable MPTCP supported 4.4 kernel
 
 ## Usage

@@ -83,6 +83,7 @@ share_hackernews: false
 
 text:
   pagination:
+    enabled: true
     newer: 'Newer'
     older: 'Older'
   share_buttons:
@@ -120,6 +121,7 @@ redcarpet:
   extensions: ['smart', 'tables', 'with_toc_data']
 permalink:    pretty
 paginate:     5
+paginate_path: "/page:num/"
 sass:
   style: compressed
 plugins:
