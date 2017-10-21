@@ -2,7 +2,7 @@
 layout:     post
 title:      LEDE MPTCP with kernel 4.9
 date:       2017-10-21 18:00:00
-summary:    Just added master branch with the actual (currently unstable but working) MPTCP implementation
+summary:    Just added master branch with the actual (currently unstable but working) MPTCP implementation.
 categories: mptcp
 ---
 
@@ -20,5 +20,4 @@ The MPTCP LEDE project previously supported only the stable 17.01 LEDE branch an
 ## Usage
 
 Just as before, before the start of building LEDE, its required to run `make kernel_menuconfig` then enable MPTCP support in `Networking support -> Networking options` section of kernel menuconfig. In the submenus You can select path-manager and scheduler modules to compile. 
-
 
