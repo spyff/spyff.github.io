@@ -55,7 +55,7 @@ Next step we have to enable the MPTCP support in the kernel.
 ```
 $ make kernel_menuconfig
 ```
-Then navigate into the `Networking support > Networking options` and enable `MPTCP protocol`. **Save the configuration!**
+Then navigate into the `Networking support > Networking options` and enable `MPTCP protocol`. After that, go to the `MPTCP: advanced path-manager` submenu and select some path manager but **at least one!** It is very important to select at least one, otherwise the multipath just not work! `Full-mesh` path manager should be enough for normal use. **Save the configuration!**
 
 We are ready with the configuration so let's build the image!
 ```
